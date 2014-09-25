@@ -1,0 +1,15 @@
+package com.yahoo.ycsb.db.voldemort;
+
+option java_package = "com.yahoo.ycsb.db.voldemort";
+option optimize_for = SPEED;
+
+message Msg{
+	repeated Entry entry = 1;
+}
+
+message Entry{
+	required bytes key = 1;
+	required bytes value = 2;
+}
+
+

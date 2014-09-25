@@ -1,0 +1,4 @@
+#10Gb of data
+recordcount=10000000
+#1 million operations
+operationcount=1000000

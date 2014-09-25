@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#./bin/ycsb shell voldemort -p bootstrap_urls=tcp://localhost:6666
+
+./bin/ycsb load voldemort -p bootstrap_urls=tcp://database:6666 -p request_format=pb0 -P workloads/workloada -P workloads/small -threads 50
+
+./bin/ycsb run voldemort -p bootstrap_urls=tcp://database:6666 -p request_format=pb0 -P workloads/workloada -P workloads/small -threads 25 -s
+
+
+java -Xmx5g  -cp /home/ubuntu/YCSB/core/target/core-0.1.4.jar:/home/ubuntu/YCSB/voldemort/repo/com/sleepycat/je/5.0.88/je-5.0.88.jar:/home/ubuntu/YCSB/voldemort/repo/com/voldemort/voldemort/3.0.0/voldemort-3.0.0.jar:/home/ubuntu/YCSB/voldemort/target/voldemort-binding-0.1.4.jar:/home/ubuntu/YCSB/voldemort/target/archive-tmp/voldemort-binding-0.1.4.jar:/home/ubuntu/YCSB/voldemort/src/main/conf com.yahoo.ycsb.Client -db com.yahoo.ycsb.db.VoldemortClient -p bootstrap_urls=tcp://database0:6666 -p request_format=pb0 -P workloads/workloada -P workloads/heavy -threads 20 -target  -s
+
+
+ulimit -n 40000
+
+cd /home/ubuntu/transientDisk/home/shuttle/voldemort
+rm -r config/cluster/*
+cp -r /home/ubuntu/transientDisk/home/backup/ config/cluster/
+./bin/voldemort-prod-server.sh config/cluster/backup/node_
